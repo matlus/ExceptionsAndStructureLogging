@@ -1,6 +1,6 @@
-#Python sample code demonstrating Custom Exceptions and Structured Logging
-###Application Base Exception
+# Python sample code demonstrating Custom Exceptions and Structured Logging
+### Application Base Exception
 
-###Application Logger
+### Application Logger
 
-###Music Metadata Exception
+### Music Metadata Exception

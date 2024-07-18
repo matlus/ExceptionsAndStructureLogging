@@ -1,5 +1,19 @@
+import json
 import logging
 from enum import Enum
+
+
+class ApplicationBaseExceptionJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ApplicationBaseException):
+            temp_dict = {"Message": obj.message}
+            temp_dict.update(
+                obj.contextual_data[ApplicationBaseException.CUSTOM_DIEMENSIONS]
+            )
+            return temp_dict
+
+        else:
+            return json.JSONEncoder.default(self, obj)
 
 
 class LogEvent(Enum):
@@ -18,6 +32,7 @@ class ApplicationBaseException(Exception):
         context_data: Additional contextual data you want associated with the exception. This data will be included in the custom_dimensions property and logged.
         """
         super().__init__(message)
+        self.__message = message
         self.__log_event = log_event
         self.__contextual_data = self.__build_contextual_data(context_data)
 
@@ -33,6 +48,10 @@ class ApplicationBaseException(Exception):
             **context_data,
         }
         return {self.CUSTOM_DIEMENSIONS: contextual_data}
+
+    @property
+    def message(self) -> str:
+        return self.__message
 
     @property
     def log_event(self) -> LogEvent:

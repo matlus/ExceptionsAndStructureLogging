@@ -1,10 +1,11 @@
 import logging
 
-from opencensus.ext.azure.log_exporter import AzureLogHandler
-
-from application_base_exception import ApplicationBaseException
+from application_base_exception import (
+    ApplicationBaseException,
+)
 from application_logger import ApplicationLogger
 from music_processor import MusicProcessor
+from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 
 def main():
@@ -15,6 +16,7 @@ def main():
             connection_string="InstrumentationKey=482f6ac8-de27-4cdf-ac3f-80c743b787d0;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/;ApplicationId=0c23274f-b6fb-4780-b382-9e21d11f7a3a"
         )
     )
+
     application_logger = ApplicationLogger(logger)
 
     try:
